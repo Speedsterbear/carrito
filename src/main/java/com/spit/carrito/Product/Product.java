@@ -1,28 +1,48 @@
 package com.spit.carrito.Product;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import jakarta.persistence.Id;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Column;
-import jakarta.persistence.GenerationType;
-
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 
 @Entity
-@Table(name = "Inventory")
 public class Product {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer Id;
 
-    @Column(length = 255, nullable = false, name = "Pname")
+
     private String Pname;
 
-    @Column(length = 255, nullable = false, name = "Stock")
+
+    private String Codigo;
+
     private Integer Stock;
-    @Column(length = 255, nullable = false, name = "Price")
-    private Double Price;
+
+    private Float Price;
+
+    public Product(Integer id, String Pname, String Codigo, Float Price, Integer Stock) {
+        this.Id = id;
+        this.Codigo = Codigo;
+        this.Pname = Pname;
+        this.Price = Price;
+        this.Stock = Stock;
+
+    }
+
+    public Product(String Pname, String Codigo, Float Price, Integer Stock) {
+        this.Pname = Pname;
+        this.Codigo = Codigo;
+        this.Price = Price;
+        this.Stock = Stock;
+    }
+
+    public Product(@NotNull(message = "Debes especificar el código") @Size(min = 1, max = 50, message = "El código debe medir entre 1 y 50") String codigo) {
+        this.Codigo = codigo;
+    }
+
+    public Product() {
+
+    }
 
 
     public Integer getId() {
@@ -31,6 +51,14 @@ public class Product {
 
     public void setId(Integer id) {
         this.Id = id;
+    }
+
+    public String getCodigo() {
+        return Codigo;
+    }
+
+    public void setCodigo(String Codigo) {
+        this.Codigo = Codigo;
     }
 
     public String getPname() {
@@ -45,25 +73,15 @@ public class Product {
         return Stock;
     }
 
-    public void setStock(Integer Quantity) {
-        this.Stock = Quantity;
+    public void setStock(Integer Stock) {
+        this.Stock = Stock;
     }
 
-    public Double getPrice() {
+    public Float getPrice() {
         return Price;
     }
 
-    public void setPrice(Double Price) {
+    public void setPrice(Float Price) {
         this.Price = Price;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "Id=" + Id +
-                ", Pname='" + Pname + '\'' +
-                ", Stock='" + Stock + '\'' +
-                ", Price='" + Price + '\'' +
-                '}';
     }
 }

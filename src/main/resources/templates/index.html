@@ -1,37 +1,50 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-  <meta charset="UTF-8">
-  <title>Products</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-</head>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="master">
 <body>
-<div class="container-fluid text-center">
-  <div><h2>Cart</h2></div>
-  <div>
-    <table class="table table-bordered">
-      <thead class="thead-dark">
-      <tr>
-        <th>ID</th>
-        <th>PRODUCT</th>
-        <th>STOCK</th>
-        <th>PRICE</th>
-        <th></th>
-      </tr>
-      </thead>
-      <tbody>
-      <th:block th:each="product : ${listProducts}">
+<main layout:fragment="contenido">
+  <div class="col-12">
+    <h2>Productos</h2>
+    <div th:classappend="'alert-' + (${clase != null} ? ${clase} : info)" th:if="${mensaje != null}"
+         th:text="${mensaje}"
+         class="alert">
+    </div>
+
+    <div class="table-responsive">
+      <table class="table table-bordered">
+        <thead>
         <tr>
-          <td>[[${product.id}]]</td>
-          <td>[[${product.pname}]]</td>
-          <td>[[${product.price}]]</td>
-          <td>[[${product.stock}]]</td>
+          <th>Nombre</th>
+          <th>Código</th>
+          <th>Precio</th>
+          <th>Existencia</th>
+          <th>Editar</th>
+          <th>Eliminar</th>
         </tr>
-      </th:block>
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+        <tr th:each="producto : ${productos}">
+          <td th:text="${producto.nombre}"></td>
+          <td th:text="${producto.codigo}"></td>
+          <td th:text="${producto.precio}"></td>
+          <td th:text="${producto.existencia}"></td>
+          <td>
+            <a class="btn btn-warning" th:href="@{/productos/editar/} + ${producto.id}">Editar <i
+                    class="fa fa-edit"></i></a>
+          </td>
+          <td>
+            <form th:action="@{/productos/eliminar}" method="post">
+              <input type="hidden" name="id" th:value="${producto.id}"/>
+              <button type="submit" class="btn btn-danger">Eliminar <i class="fa fa-trash"></i>
+              </button>
+            </form>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
-</div>
+</main>
 </body>
 </html>
