@@ -1,60 +1,14 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="master">
-<body>
-<main layout:fragment="content">
-  <div class="col-12">
-    <h2>Cart</h2>
-    <div th:classappend="'alert-' + (${clase != null} ? ${clase} : info)" th:if="${mensaje != null}"
-         th:text="${mensaje}"
-         class="alert">
-    </div>
-    <form th:object="${product}" th:action="@{/vender/agregar}" method="post">
-      <div class="form-group">
-        <label for="Pname">Código de barras</label>
-        <input autofocus autocomplete="off" th:field="*{Pname}" id="Pname"
-               placeholder="Escanea el código o escríbelo y presiona Enter"
-               type="text"
-               class="form-control" th:classappend="${#fields.hasErrors('codigo')} ? 'is-invalid' : ''">
-        <div class="invalid-feedback" th:errors="*{Pname}"></div>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-      </div>
-    </form>
-    <form class="mb-2" th:action="@{/vender/terminar}" method="post">
-      <button type="submit" class="btn btn-success">Terminar&nbsp;<i class="fa fa-check"></i>
-      </button>
-    </form>
-    <h1 th:text="${'Total: ' + total}"></h1>
-    <div class="table-responsive">
-      <table class="table table-bordered">
-        <thead>
-        <tr>
-          <th>Nombre</th>
-          <th>Código</th>
-          <th>Precio</th>
-          <th>Cantidad</th>
-          <th>Total</th>
-          <th>Quitar de lista</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="product, iterador : ${session.carrito}">
-          <td th:text="${product.pname}"></td>
-          <td th:text="${product.price}"></td>
-          <td th:text="${product.stock}"></td>
-          <td th:text="${product.total}"></td>
-          <td>
-            <form th:action="@{/vender/quitar/} + ${iterador.index}" method="post">
-              <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i>
-              </button>
-            </form>
-          </td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</main>
-</body>
+  <head>
+    <title>Good Thymes Virtual Grocery</title>
+  </head>
+
+  <body>
+  
+    <p th:text="${cart}"></p>
+  
+  </body>
+  
 </html>
