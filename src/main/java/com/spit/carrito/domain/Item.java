@@ -20,7 +20,7 @@ public class Item {
         }
 
 
-        public Item(Integer id, String nombre, String descripcion, String imagen, double precio, int cantidad) {
+        public Item (Integer id, String nombre, String descripcion, String imagen, double precio, int cantidad) {
             super();
             this.id = id;
             this.nombre = nombre;

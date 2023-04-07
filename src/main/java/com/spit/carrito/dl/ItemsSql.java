@@ -23,7 +23,7 @@ public class ItemsSql {
 
         @Override
         public Optional<Item> get(Integer id) {
-            return itemRepository.findById(String.valueOf(id));
+            return itemRepository.findById(id);
         }
 
         @Override
@@ -33,7 +33,7 @@ public class ItemsSql {
 
         @Override
         public void delete(Integer id) {
-            itemRepository.deleteById(String.valueOf(id));
+            itemRepository.deleteById(id);
         }
 
         @Override
